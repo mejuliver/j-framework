@@ -16,6 +16,7 @@
 		}
 
 		include $core->theme_dir.'/app/index.php';
+		exit;
 	}
 
 	//check if route exist
@@ -32,12 +33,9 @@
 	}
 
 	if($http===1){
-		if(!view($http_portal)){
-			header('HTTP/1.1 404 Not Found');
+		if(view($http_portal) === 0){
 			echo 'Page does not exist';
 			exit;
-		}else{
-			view($http_portal);
 		}
 	}else{
 		header('HTTP/1.1 404 Not Found');
