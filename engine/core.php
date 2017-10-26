@@ -18,7 +18,7 @@ class core{
 		if(file_exists($this->theme_dir.'/app/'.$page.'.php')==1){
 			include $this->theme_dir.'/app/'.$page.'.php';
 		}else{
-			return false;
+			return 0;
 		}
 	} 
 
