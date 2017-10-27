@@ -1,2 +1,2 @@
 # j-framework
-Lite PHP app framework
+Lite HTTP PHP app framework
