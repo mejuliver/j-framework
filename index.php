@@ -1,4 +1,4 @@
 <?php 
 	
 	define('pixzel',true);
-	require 'engine/core.php';
+	require __DIR__ . '/engine/core.php';
