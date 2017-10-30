@@ -56,7 +56,7 @@ class core{
 		return $core->view($e);
 	}
 
-	function route($e,$d){
+	function route($e,$d,$c = false){
 		global $routes_array;
 		$route_exist = false;
 		//check if routes already exist
@@ -72,11 +72,18 @@ class core{
 			exit;
 		}
 
-		$routes_array[] = [ 'name' => $e, 'render' => $d];
+		$routes_array[] = [ 'name' => $e, 'render' => $d, 'controller' => $c ];
 
 
 	}
 
+	function callCtlr($c){
+		if(file_exists($this->theme_dir.'/controllers/'.$c.'.php')==1){
+			include $this->theme_dir.'/controllers/'.$c.'.php';
+		}else{
+			return 0;
+		}
+	}
 	require $core->theme_dir.'/routes.php';
 	require 'http.php';
 

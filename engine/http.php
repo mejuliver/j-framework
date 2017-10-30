@@ -23,18 +23,29 @@
 
 	$http = 0;
 	$http_portal = '';
+	$controller = false;
 
 	foreach($routes_array as $key => $value){
 		if($request === $value['name']){
 			$http = 1;
 			$http_portal = $value['render'];
+			$controller = $value['controller'];
 			break;
 		}
 	}
 
 	if($http===1){
-		if(view($http_portal) === 0){
-			echo 'Page does not exist';
+		if(!$controller){
+			if(view($http_portal) === 0){
+				echo 'Page does not exist';
+				exit;
+			}
+		}else{
+			if(callCtlr($controller) === 0){
+				die('Undefined controller');
+			}else{
+				callCtlr($controller);
+			}
 			exit;
 		}
 	}else{
