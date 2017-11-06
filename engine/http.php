@@ -13,16 +13,13 @@
 	$request = trim($_SERVER['REQUEST_URI'], '/');
 
 	if($request==='') {
-		if(file_exists('app/index.php')===0){
-		    header('HTTP/1.1 404 Not Found');
-
+		if(file_exists($app->theme_dir.'/app/index.php')!=1 ){
+			header('HTTP/1.1 404 Not Found');
 		    echo 'Ghost page? seems like this page does not exist';
-
 		    exit;
 		}
 
-		include $app->theme_dir.'/app/index.php';
-		exit;
+		
 	}
 
 	//check if route exist
@@ -53,8 +50,6 @@
 				$controller_instance = new $controller_init();
 				$controller_class_init = $controller_class[1];
 				return $controller_instance->$controller_class_init();
-
-
 			}else{
 				echo 'Undefined controller';
 				exit;

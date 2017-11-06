@@ -11,6 +11,7 @@
 
 	// -------------------------------------------------------------
 	//defined routes here
+	$app->route('','index','testController@index');
 	$app->route('home','index','testController@index');
 
 

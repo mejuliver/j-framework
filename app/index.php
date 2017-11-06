@@ -4,6 +4,6 @@
 	<title>Test</title>
 </head>
 <body>
-	<h1>hello</h1>
+	<h1><?php echo $data; ?></h1>
 </body>
 </html>

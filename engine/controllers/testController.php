@@ -13,8 +13,8 @@
 		}
 
 		public function index(){
-
-		 	echo $this->server('theme_dir');
+			$model = $this->model('testModel');
+		 	$this->view('index',$model) ;
 		}
 
 	}

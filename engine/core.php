@@ -15,17 +15,30 @@
 			$this->theme_dir = $this->server('theme_dir');
 		}
 
-		public function view($page){
-			if(file_exists($this->theme_dir.'/app/'.$page.'.php')==1){
+		public function view($page,$data=null){
+			if(file_exists('app/'.$page.'.php')==1){
+				if($data!=null){
+					foreach($data as $var){
+						$$var = $var;
+					}
+				}
 				include $this->theme_dir.'/app/'.$page.'.php';
 			}else{
 				return 0;
 			}
-		} 
+
+		}
+
+		private function model($model){
+			if(file_exists('app/'.$page.'.php')!=1){
+
+			}else{
+				
+			}
+		}
 
 		public function server($type='url'){
 			$server_name = $_SERVER['SERVER_NAME'];
-
 			if (!in_array($_SERVER['SERVER_PORT'], [80, 443])) {
 
 			$port = ":$_SERVER[SERVER_PORT]";
