@@ -1,8 +1,8 @@
 <?php
 
-	namespace App\Controllers;
+	namespace App\Models;
 
-	class Controller{
+	class Model{
 
 		public function __construct(){
 			

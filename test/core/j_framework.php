@@ -1,13 +1,10 @@
 <?php
-	namespace App\Core;
 
-	if(!defined('pixzel')) :
-		die('You have no candy, get off my lawn!');
-	endif;
+	namespace App;
 
 	$routes_array = [];
 
-	class Core{
+	class j_framework{
 		public $url;
 		public $theme_dir;
 		function __construct(){
@@ -80,14 +77,3 @@
 		}
 
 	}
-
-
-	$app = new core();
-
-	require $app->theme_dir.'/engine/routes.php';
-	require $app->theme_dir.'/engine/http.php';
-
-	if(count($routes_array)===0){
-		die('The engine could not start because you did not define any routes yet.');
-	}
-?>

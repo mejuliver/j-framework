@@ -1,7 +1,7 @@
 <?php
-	namespace engine\http;
+	namespace App\Http;
 
-	use engine as app;
+	use App as app;
 
 	if(!defined('pixzel')) :
 		die('You have no candy, get off my lawn!');
@@ -46,7 +46,7 @@
 			$controller_class = explode('@', $controller);
 			if(file_exists($app->theme_dir.'/engine/controllers/'.$controller_class[0].'.php')==1){
 				require $app->theme_dir.'/engine/controllers/'.$controller_class[0].'.php';
-				$controller_init = 'engine\http\controllers\\'.$controller_class[0];
+				$controller_init = 'App\Controllers\\'.$controller_class[0];
 				$controller_instance = new $controller_init();
 				$controller_class_init = $controller_class[1];
 				return $controller_instance->$controller_class_init();

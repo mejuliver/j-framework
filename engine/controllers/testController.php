@@ -1,11 +1,13 @@
 <?php
 
 	
-	namespace engine\http\controllers;
+	namespace App\Controllers;
 
-	use engine as core;
+	use App\Controllers\Controller as controller;
 
-	class testController extends core\core{
+
+
+	class testController extends Controller{
 
 		public function __construct(){
 
@@ -13,8 +15,10 @@
 		}
 
 		public function index(){
-			$model = $this->model('testModel');
-		 	$this->view('index',$model) ;
+			// $model = $this->model('testModel');
+		 // 	$this->view('index',$model) ;
+
+
 		}
 
 	}
