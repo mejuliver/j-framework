@@ -44,6 +44,6 @@ $model = new ModelName();
 
 ```
 
-### VIEW
+### View
 
 all files that are used on redering your app must be put in 'app' folder
