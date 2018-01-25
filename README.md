@@ -47,3 +47,7 @@ $model = new ModelName();
 ### View
 
 all files that are used on redering your app must be put in 'app' folder
+
+### Config
+
+resides in 'app/config.php' here you can put all the configurations for you app. If you intend to run this in a shared hosting, you may specify the absolute url of the framework in the '$app_url'.
