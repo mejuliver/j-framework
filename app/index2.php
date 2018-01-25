@@ -28,8 +28,8 @@
 <body>
 	<div id="main-container">
 		<div>
-			<img src="app/helpers/assets/img/error.gif">
-			<h1><?php echo $error_name; ?></h1>
+			<img src="public/img/test.gif">
+			<h1>KEEP CALM! EVERYTHING IS GOOD</h1>
 		</div>
 	</div>
 </body>

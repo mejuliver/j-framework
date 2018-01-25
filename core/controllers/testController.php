@@ -15,7 +15,7 @@ class testController extends controller{
 
 		$test2 = 'test';
 
-		$this->view('index',[ 'test' => $test2 ]);
+		$this->view('index2',[ 'test' => $test2 ]);
 	}
 }
 
