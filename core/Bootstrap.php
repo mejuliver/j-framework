@@ -17,7 +17,7 @@ include __DIR__ . '/../routes.php';
 $init = $app->init();
 
 if( $init['type'] === 'error' ){
-
+	$error_name = $init['error'];
 	if( file_exists( __DIR__ . '/../app/error.php' ) ){
 		include __DIR__ . '/../app/error.php';
 		exit;

@@ -30,6 +30,9 @@ class j_framework{
 
 	}
 	public function server($type='url'){
+
+		require('config.php');
+
 		$server_name = $_SERVER['SERVER_NAME'];
 		if (!in_array($_SERVER['SERVER_PORT'], [80, 443])) {
 
@@ -44,6 +47,8 @@ class j_framework{
 		$scheme = 'http';
 		}
 		$server = $scheme.'://'.$server_name.$port;
+
+		$server = isset($app_url) && $app_url !== '' ? trim($server.'/'.$app_url.'/','/') : $server;
  
 		$theme_path = str_replace('\\', '/', getcwd());
 
@@ -92,19 +97,26 @@ class j_framework{
 	public function route($e,$f=false,$g=false){
 		global $routes_array;
 		$route_exist = false;
+
+		//require config
+		require('config.php');
+
+		$route_name = isset($app_url) && $app_url !== '' ? trim($app_url.'/'.$e,'/') : $e;
+		
 		//check if routes already exist
 		foreach($routes_array as $key => $value){
-			if($value['name'] === $e){
+			if( $value['name'] === $route_name ){
 				$route_exist = true;
+				break;
 			}
-			break;
+			
 		}
 
 		if($route_exist){
 			return [ 'type'  => 'error', 'error' => 4 ];
 		}
 
-		$routes_array[] = [ 'name' => $e, 'controller' => $f, 'render' => $g ];
+		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g ];
 	}
 
 	private function checkRoutes(){
