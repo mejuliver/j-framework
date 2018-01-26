@@ -1,5 +1,5 @@
 # j-framework
-MVC Lite MVC PHP app framework
+Lite MVC PHP app framework
 
 
 #### Routes
