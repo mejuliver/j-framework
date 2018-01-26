@@ -18,8 +18,8 @@ $init = $app->init();
 
 if( $init['type'] === 'error' ){
 	$error_name = $init['error'];
-	if( file_exists( __DIR__ . '/../app/error.php' ) ){
-		include __DIR__ . '/../app/error.php';
+	if( file_exists( __DIR__ . '/../app/helpers/error.php' ) ){
+		include __DIR__ . '/../app/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
@@ -32,7 +32,8 @@ if( $init['type'] === 'error' ){
 
 		include __DIR__ . '/controllers/'.$controller[1].'.php';
 
-		$controller_instance = new Controllers\testController();
+		$class = 'App\Controllers\\'.$controller[1];
+		$controller_instance = new $class();
 		$controller_class_init = $controller[0];
 		
 		$controller_instance->$controller_class_init();
