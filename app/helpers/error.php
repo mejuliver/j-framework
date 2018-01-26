@@ -6,19 +6,31 @@
 	<style>
 		img{
 			display:block;
-			margin:50px auto 30px auto;
+			margin:0px auto 30px auto;
 		}
 		body{
+			padding:0px;
 			font-family: 'Quicksand', sans-serif;
-			color:#000;
-			text-align:center;
-			font-weight 400;
-			color:red;
+		}
+		#main-container{
+			display: flex;
+			align-items:center;
+			justify-content:center;
+			height: 100vh;
+		}
+		#main-container h1{
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			font-weight: 300;
 		}
 	</style>
 </head>
 <body>
-	<img src="assets/img/error.gif">
-	<h1>Error Page: <?php echo $error_name; ?></h1>
+	<div id="main-container">
+		<div>
+			<img src="<?php $app->server('url'); ?>/app/helpers/assets/img/error.gif">
+			<h1><?php echo $error_name; ?></h1>
+		</div>
+	</div>
 </body>
 </html>
