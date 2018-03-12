@@ -1,6 +1,4 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 $routes_array = [];
 
@@ -113,6 +111,8 @@ class j_framework{
 
 
 		$route_name = isset($app_url) && $app_url !== '' ? $app_url.'/'.$e : $e;
+
+		$route_name = str_replace('//', '/', $route_name);
 		
 		//check if routes already exist
 		foreach($routes_array as $key => $value){
@@ -132,12 +132,13 @@ class j_framework{
 	}
 
 	private function checkRoutes(){
-		$request = parse_url($this->http_request)['path'];
+		$request = str_replace('//', '/',parse_url($this->http_request)['path'].'/');
 		$http = 0;
 		$http_portal = false;
 		$controller = false;
 
 		global $routes_array;
+
 
 		foreach($routes_array as $key => $value){
 			if($request === $value['name']){
@@ -147,8 +148,6 @@ class j_framework{
 				break;
 			}
 		}
-
-
 
 		return [ 'http' => $http, 'http_portal' => $http_portal, 'controller' => $controller ];
 
@@ -167,6 +166,7 @@ class j_framework{
 		if( count($routes_array) === 0 ){
 			return [ 'type'  => 'error', 'error' => 0 ];
 		}
+
 		//check if route exist
 		if($http===1){
 			if(!$controller){

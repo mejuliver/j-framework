@@ -1,10 +1,9 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 require_once('j_framework.php');
 require_once('Model.php');
 require_once('Controller.php');
+require_once('Library.php');
 
 
 use App\j_framework as framework;
@@ -45,7 +44,3 @@ if( $init['type'] === 'error' ){
 
 
 }
-
-
-
-
