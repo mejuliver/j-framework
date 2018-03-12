@@ -9,7 +9,7 @@ class Model{
 	}
 }
 
-foreach(glob(__DIR__ . '/models'.'/*.php') as $file) {
+foreach(glob(__DIR__ . '/../models'.'/*.php') as $file) {
 
 	require_once($file);
 

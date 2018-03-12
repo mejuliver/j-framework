@@ -13,9 +13,8 @@ class testController extends controller{
 
 	public function index(){
 
-		$test2 = 'test';
-
-		$this->view('index2',[ 'test' => $test2 ]);
+		$this->view('index');
 	}
 }
+
 

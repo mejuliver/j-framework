@@ -28,7 +28,6 @@
 <body>
 	<div id="main-container">
 		<div>
-			<img src="<?php $app->server('url'); ?>/app/helpers/assets/img/error.gif">
 			<h1><?php echo $error_name; ?></h1>
 		</div>
 	</div>

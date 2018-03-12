@@ -78,15 +78,21 @@ class j_framework{
 	}
 
 	public function view($page,$data=false){
+		//require config
+		require(__DIR__ . '/../'.'config.php');
+
+		$base_url = $this->server();
+		$assets = $base_url.'/public/';
+
 		if(file_exists(__DIR__ . '/../app/'.$page.'.php')){
 
-			$base_url = $this->server();
-			$assets = $base_url.'/public/';
+
 			if($data){
 				foreach($data as $key => $value ){
 					$$key = $value;
 				}
 			}
+
 			include __DIR__ . '/../app/'.$page.'.php';
 
 			exit;
@@ -101,9 +107,12 @@ class j_framework{
 		$route_exist = false;
 
 		//require config
-		require(__DIR__ . '/../config.php');
+		require(__DIR__ . '/../'.'config.php');
 
-		$route_name = isset($app_url) && $app_url !== '' ? trim($app_url.'/'.$e,'/') : $e;
+		$e = parse_url($e)['path'];
+
+
+		$route_name = isset($app_url) && $app_url !== '' ? $app_url.'/'.$e : $e;
 		
 		//check if routes already exist
 		foreach($routes_array as $key => $value){
@@ -118,11 +127,12 @@ class j_framework{
 			return [ 'type'  => 'error', 'error' => 4 ];
 		}
 
-		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g, 'wildcard' => $h ];
+		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g ];
+
 	}
 
 	private function checkRoutes(){
-		$request = $this->http_request;
+		$request = parse_url($this->http_request)['path'];
 		$http = 0;
 		$http_portal = false;
 		$controller = false;
@@ -138,6 +148,8 @@ class j_framework{
 			}
 		}
 
+
+
 		return [ 'http' => $http, 'http_portal' => $http_portal, 'controller' => $controller ];
 
 	}
@@ -146,7 +158,7 @@ class j_framework{
 		global $routes_array;
 		// request variable
 		$request = $this->http_request;
-		$http_init = $this->checkRoutes($request);
+		$http_init = $this->checkRoutes();
 		// http variable
 		$http = $http_init['http'];
 		$http_portal = $http_init['http_portal'];
@@ -166,7 +178,7 @@ class j_framework{
 
 			}else{
 				$controller_class = explode('@', $controller);
-				if(file_exists(__DIR__ . '/controllers/'.$controller_class[1].'.php')){
+				if(file_exists(__DIR__ . '/../controllers/'.$controller_class[1].'.php')){
 
 					return [ 'type'  => 'app', 'controller' => $controller ];
 

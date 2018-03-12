@@ -30,7 +30,7 @@ if( $init['type'] === 'error' ){
 	if( $init['controller'] ){
 		$controller = explode( '@', $init['controller'] );
 
-		include __DIR__ . '/controllers/'.$controller[1].'.php';
+		include __DIR__ . '/../controllers/'.$controller[1].'.php';
 
 		$class = 'App\Controllers\\'.$controller[1];
 		$controller_instance = new $class();
@@ -43,7 +43,9 @@ if( $init['type'] === 'error' ){
 		$app->view( $init['portal'] );
 	}
 
+
 }
+
 
 
 
