@@ -13,9 +13,10 @@ class testController extends controller{
 
 	public function index(){
 
-		$test2 = 'test';
+		$test2 = $_GET['name'];
 
-		$this->view('index2',[ 'test' => $test2 ]);
+
+		$this->view('index',[ 'test' => $test2 ]);
 	}
 }
 
