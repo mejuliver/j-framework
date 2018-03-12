@@ -80,6 +80,8 @@ class j_framework{
 	public function view($page,$data=false){
 		if(file_exists(__DIR__ . '/../app/'.$page.'.php')){
 
+			$base_url = $this->server();
+			$assets = $base_url.'/public/';
 			if($data){
 				foreach($data as $key => $value ){
 					$$key = $value;
@@ -94,12 +96,12 @@ class j_framework{
 
 	}
 
-	public function route($e,$f=false,$g=false){
+	public function route($e,$f=false,$g=false,$h=[] ){
 		global $routes_array;
 		$route_exist = false;
 
 		//require config
-		require('config.php');
+		require(__DIR__ . '/../config.php');
 
 		$route_name = isset($app_url) && $app_url !== '' ? trim($app_url.'/'.$e,'/') : $e;
 		
@@ -116,7 +118,7 @@ class j_framework{
 			return [ 'type'  => 'error', 'error' => 4 ];
 		}
 
-		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g ];
+		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g, 'wildcard' => $h ];
 	}
 
 	private function checkRoutes(){
