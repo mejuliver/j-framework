@@ -38,7 +38,7 @@
 </head>
 <body>
 	<div id="main-wrapper">
-		<h1>Shoot to the moon, even if you miss you'll  land among the stars...</h1>
+		<h1>Shoot to the moon, even if you miss, you'll land among the stars...</h1>
 	</div>
 </body>
 </html>
