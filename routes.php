@@ -1,7 +1,7 @@
 <?php
 
-	// $app->route('',false,'index2');
-	$app->route('','index@testController');
+	$app->route('/',false,'index');
+	// $app->route('','index@testController');
 
 
 
