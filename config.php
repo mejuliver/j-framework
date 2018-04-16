@@ -1,7 +1,7 @@
 
 <?php
 
-	$app_url = 'j-framework';
+	$app_url = '';
 
 	$app_dir = '';
 	$public_dir = '';

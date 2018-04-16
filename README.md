@@ -46,7 +46,7 @@ $model = new ModelName();
 
 ### View
 
-all files that are used on redering your app must be put in 'app' folder
+all files that are used on redering your app must be put in 'app' folder. You can specify your own app folder directory in config '$app_dir'
 
 ### Config
 

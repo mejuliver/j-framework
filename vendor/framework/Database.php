@@ -10,7 +10,7 @@ class Controller extends framework{
 
 	public function connectDB(){
 
-		require(__DIR__ . '/../'.'config.php');
+		require(__DIR__ . '/../../'.'config.php');
 
 		$conn = new mysqli( $db['host'], $db['username'], $db['password'] );
 

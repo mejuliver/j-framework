@@ -11,14 +11,19 @@ use App\j_framework as framework;
 $app = new framework;
 
 //register the routes
-include __DIR__ . '/../routes.php';
+include __DIR__ . '/../../routes.php';
 
 $init = $app->init();
 
 if( $init['type'] === 'error' ){
 	$error_name = $init['error'];
-	if( file_exists( __DIR__ . '/../app/helpers/error.php' ) ){
-		include __DIR__ . '/../app/helpers/error.php';
+
+	require(__DIR__ . '/../../config.php');
+
+	$base_url = $app->server();
+	
+	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
+		include __DIR__ . '/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
@@ -29,7 +34,7 @@ if( $init['type'] === 'error' ){
 	if( $init['controller'] ){
 		$controller = explode( '@', $init['controller'] );
 
-		include __DIR__ . '/../controllers/'.$controller[1].'.php';
+		include __DIR__ . '/../../controllers/'.$controller[1].'.php';
 
 		$class = 'App\Controllers\\'.$controller[1];
 		$controller_instance = new $class();

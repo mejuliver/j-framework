@@ -1,3 +1,3 @@
 <?php
 
-	require __DIR__ . '/core/Bootstrap.php';
+	require __DIR__ . '/vendor/framework/Bootstrap.php';

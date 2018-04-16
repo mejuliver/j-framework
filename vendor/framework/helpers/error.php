@@ -45,7 +45,7 @@
 				<div id="main-container">
 					<div>
 						<div class="col-sm-6">
-							<img src="<?php $base_url?>/app/helpers/assets/img/j-man.png" alt="Error Image">
+							<img src="<?php echo $base_url; ?>/vendor/framework/helpers/assets/img/j-man.png" alt="Error Image">
 						</div>
 						<div class="col-sm-6">
 							<h1><?php echo $error_name; ?></h1>
