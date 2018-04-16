@@ -1,7 +1,7 @@
 
 <?php
 
-	$app_url = '';
+	$app_url = 'j-framework';
 
 
 	$db = [
