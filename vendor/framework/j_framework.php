@@ -138,16 +138,17 @@ class j_framework{
 	}
 
 	private function checkRoutes(){
-		$request = str_replace('//', '/',parse_url($this->http_request)['path']);
+		$request = str_replace('//', '/',parse_url($this->http_request)['path']).'/';
 		$http = 0;
 		$http_portal = false;
 		$controller = false;
 
 		global $routes_array;
 
-
 		foreach($routes_array as $key => $value){
-			if($request === $value['name']){
+			$name =  str_replace('//', '/',$value['name']).'/';
+			$name =  str_replace('//', '/',$name);
+			if($request === $name){
 				$http = 1;
 				$http_portal = $value['render'];
 				$controller = $value['controller'];
@@ -173,6 +174,7 @@ class j_framework{
 			return [ 'type'  => 'error', 'error' => 0 ];
 		}
 
+
 		//check if route exist
 		if($http===1){
 			if(!$controller){
@@ -180,6 +182,7 @@ class j_framework{
 				require(__DIR__ . '/../../config.php');
 
 				$file = $app_dir != '' ? __DIR__ . '/../../'.$app_dir.'/'.$http_portal.'.php' : __DIR__ . '/../../app/'.$http_portal.'.php';
+
 				
 				if(file_exists($file)){
 
