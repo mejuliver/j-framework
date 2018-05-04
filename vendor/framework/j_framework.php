@@ -118,6 +118,8 @@ class j_framework{
 		$route_name = isset($app_url) && $app_url !== '' ? $app_url.'/'.$e : $e;
 
 		$route_name = str_replace('//', '/', $route_name);
+
+
 		
 		//check if routes already exist
 		foreach($routes_array as $key => $value){
@@ -133,12 +135,10 @@ class j_framework{
 		}
 
 		$routes_array[] = [ 'name' => $route_name, 'controller' => $f, 'render' => $g ];
-
-
 	}
 
 	private function checkRoutes(){
-		$request = str_replace('//', '/',parse_url($this->http_request)['path'].'/');
+		$request = str_replace('//', '/',parse_url($this->http_request)['path']);
 		$http = 0;
 		$http_portal = false;
 		$controller = false;
@@ -182,6 +182,7 @@ class j_framework{
 				$file = $app_dir != '' ? __DIR__ . '/../../'.$app_dir.'/'.$http_portal.'.php' : __DIR__ . '/../../app/'.$http_portal.'.php';
 				
 				if(file_exists($file)){
+
 					
 					return [ 'type'  => 'app', 'controller' => $controller, 'portal' => $http_portal ];
 				}
@@ -200,6 +201,7 @@ class j_framework{
 			}
 			
 		}else{
+
 			return [ 'type'  => 'error', 'error' => 3 ];
 		}
 	}
