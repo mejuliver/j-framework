@@ -219,4 +219,39 @@ class j_framework{
 	    return false;
 	}
 
+
+	public function request($request=false){
+
+		// get the current request
+		$full_url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+		// check if current request contains a http get request
+		if( strpos($full_url,'?') ){
+			$request_sanitize_1  = explode('?', $full_url)[1];
+			
+			if( trim($request_sanitize_1) != ''){
+
+				$request_sanitize_2 = explode('&', $request_sanitize_1);
+				$request_arr = [];
+
+
+				foreach( $request_sanitize_2 as $value ){
+					// rebuild the request array
+					// get id and the value
+					$request_sanitize_3 = explode('=', $value);
+				    $request_arr[$request_sanitize_3[0]] = $request_sanitize_3[1];
+				}
+
+				// return the request
+				if( $request ){
+					return $request_arr[$request];
+				}
+
+			}
+		}
+
+		return false;
+		
+	}
+
 }

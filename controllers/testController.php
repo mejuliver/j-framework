@@ -7,7 +7,7 @@ use App\Models\testModel as model;
 
 
 class testController extends controller{
-	public function __constructor(){
+	function __construct(){
 
 	}
 
