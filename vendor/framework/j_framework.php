@@ -81,7 +81,7 @@ class j_framework{
 		//require config
 		require(__DIR__ . '/../../config.php');
 
-		$base_url = $this->server();
+		$base_url = $this->server().'/';
 		$assets = $base_url.'/public/';
 
 		$file = $app_dir != '' ? __DIR__ . '/../../'.$app_dir.'/'.$page.'.php' : __DIR__ . '/../../app/'.$page.'.php';
