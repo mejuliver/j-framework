@@ -31,7 +31,7 @@ class j_framework{
 	}
 	public function server($type='url'){
 
-		require(__DIR__ . '/../../config.php');
+		require($this->app_path().'config.php');
 
 		$server_name = $_SERVER['SERVER_NAME'];
 		if (!in_array($_SERVER['SERVER_PORT'], [80, 443])) {
@@ -252,6 +252,12 @@ class j_framework{
 
 		return false;
 		
+	}
+
+	public function app_path(){
+
+		return __DIR__.'/../../';
+
 	}
 
 }
