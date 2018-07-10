@@ -1,6 +1,6 @@
 <?php namespace App;
 
-require_once('j_framework.php');
+require_once('framework.php');
 require_once('Model.php');
 require_once('Controller.php');
 require_once('Library.php');
