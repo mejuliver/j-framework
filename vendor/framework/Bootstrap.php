@@ -6,7 +6,7 @@ require_once('Controller.php');
 require_once('Library.php');
 
 
-use App\j_framework as framework;
+use App\framework as framework;
 
 $app = new framework;
 

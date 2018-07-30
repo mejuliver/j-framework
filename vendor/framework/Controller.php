@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-use App\j_framework as framework;
+use App\framework as framework;
 
 class Controller extends framework{
 
