@@ -17,16 +17,21 @@ Refer to routes.php
 You may specify 'controller' argument to false to directly bind a view
 ```
 $app->route('about',false,'index');
+
+```
+if you have controller then
+```
+$app->route('about',controller_sample,false);
 ```
 
 #### Controller
 
-All controllers must be put in 'core/controllers' folder. See testController.php sample.
+All controllers must be put in 'controllers' folder. See 'controllers/testController.php' sample.
 
 
 #### Model
 
-All models must be put in 'core/models folder'. See testModel.php sample
+All models must be put in 'models folder'. See 'models/testModel.php' sample
 
 Example
 ```
@@ -50,4 +55,4 @@ all files that are used on redering your app must be put in 'app' folder. You ca
 
 ### Config
 
-resides in 'app/config.php' here you can put all the configurations for you app. If you intend to run this in a shared hosting, you may specify the absolute url of the framework in the '$app_url'.
+(config.php) here you can put all the configurations for you app. If you intend to run this in a shared hosting, you may specify the absolute url of the framework in the '$app_url'.

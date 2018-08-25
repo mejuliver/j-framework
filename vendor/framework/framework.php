@@ -2,7 +2,7 @@
 
 $routes_array = [];
 
-class j_framework{
+class framework{
 	public $url;
 	public $theme_dir;
 	public $http_request;
@@ -84,7 +84,7 @@ class j_framework{
 		$base_url = $this->server().'/';
 		$assets = $base_url.'public/';
 
-		$file = $app_dir != '' ? __DIR__ . '/../../'.$app_dir.'/'.$page.'.php' : __DIR__ . '/../../app/'.$page.'.php';
+		$file = trim($app_dir != '' ? __DIR__ . '/../../'.$app_dir.'/'.$page.'.php' : __DIR__ . '/../../app/'.$page.'.php');
 
 		if(file_exists($file)){
 
