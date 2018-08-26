@@ -1,1 +1,0 @@
-Here we're you can put your public files such as css, js etc.

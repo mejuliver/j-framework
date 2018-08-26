@@ -7,31 +7,27 @@ Lite MVC PHP app framework
 Here you can define your route
 
 Example
+
 ```
-$app->route( [ http request e.g home, about, projects/my-projects] ,[controller and its class to be initialize separated by 'a', e.g. index@testController ]);
+$route['sample'] = [
+	false, // specify the default template name, if declared an controller, this will not be read
+	'sample_controller@sample', // controller name, the '@' symbol is a delimiter between your controller name and the method e.g controller@method, if no method, index will be use by default
+	false // models, provide an array if multiple e.g. ['model1','model2','model3']. If false, all models in the models folder will be loaded
+];
 
 ```
 
 Refer to routes.php 
 
-You may specify 'controller' argument to false to directly bind a view
-```
-$app->route('about',false,'index');
-
-```
-if you have controller then
-```
-$app->route('about',controller_sample,false);
-```
 
 #### Controller
 
-All controllers must be put in 'controllers' folder. See 'controllers/testController.php' sample.
+All controllers must be put in 'controllers' folder. See 'controllers/Sample_controller.php' sample.
 
 
 #### Model
 
-All models must be put in 'models folder'. See 'models/testModel.php' sample
+All models must be put in 'models folder'. See 'models/Sample_model.php' sample
 
 Example
 ```
@@ -49,10 +45,24 @@ $model = new ModelName();
 
 ```
 
+to your controller;
+
 ### View
 
-all files that are used on redering your app must be put in 'app' folder. You can specify your own app folder directory in config '$app_dir'
+All templates or anything that was tied up with the view must be put on 'templates' folder.
+
+you can directly call the view by not specifying a controller name unto a route. If controller was declared then the view name will be skip
+
+```
+$route['home'] = [home_template] // this can be found inside the templates folder
+```
 
 ### Config
 
-(config.php) here you can put all the configurations for you app. If you intend to run this in a shared hosting, you may specify the absolute url of the framework in the '$app_url'.
+(config.php) here you can put all the configurations for you app. Some of the default and required settings are
+
+```
+$app['url'] = ''; // leave this empty if app is not hosted on shared hosting
+$app['title'] = '' // specify your app title
+$app['db']['mysql'] = [..]; // database settings
+```
