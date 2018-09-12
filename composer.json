@@ -1,6 +1,14 @@
 {
+	"name": "mejuliver/jframework",
+    "description": "A lite PHP MVC Framework",
+    "authors": [
+        {
+            "name": "Juliver Galleto",
+            "email": "juliver.galleto@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
     "require": {
-    	"mejuliver/jframework" : "^0.1",
         "respect/validation": "^1.1",
         "joshcam/mysqli-database-class": "dev-master"
     },
