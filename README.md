@@ -69,7 +69,10 @@ $app['db']['mysql'] = [..]; // database settings
 
 ### External Embedded Validator Package
 https://respect-validation.readthedocs.io/en/1.1/
-
 ```
 use \Respect\Validation\Validator as v;
+```
+https://github.com/ThingEngineer/PHP-MySQLi-Database-Class
+```
+use \MysqliDb as sqldb;
 ```
