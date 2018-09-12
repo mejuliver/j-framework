@@ -1,0 +1,10 @@
+{
+    "require": {
+        "respect/validation": "^1.1"
+    },
+    "autoload": {
+	    "psr-4": {
+	      "jframework\\":"src/"
+	    }
+	 }
+}

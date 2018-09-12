@@ -1,0 +1,18 @@
+RewriteEngine On 
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d 
+
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+RewriteRule ^(app/) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Library.php) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Framework.php) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Database.php) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Controller.php) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Model.php) - [F,L,NC]
+RewriteRule ^(vendor/jframework/Bootstrap.php) - [F,L,NC]
+RewriteRule ^(controllers/) - [F,L,NC]
+RewriteRule ^(libraries/) - [F,L,NC]
+RewriteRule ^(models/) - [F,L,NC]
