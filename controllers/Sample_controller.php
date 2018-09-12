@@ -1,19 +1,20 @@
 <?php namespace jframework\Controllers;
 
 use jframework\Models\Sample_model as my_model;
+use \Respect\Validation\Validator as v;	
 
 Class Sample_controller extends controller{
 
 	public function index(){
-
+		
 	}
 
 	public function sample_model(){
 
-
 		$model = new My_model;
 
 		$data['from_model'] = $model->test();
+
 		$data['sample'] = 'Sample data';
 
 		$this->view('sample_model',$data);

@@ -8,9 +8,15 @@ class ComposerStaticInit2eecc302e77727c7138126b9d4f14be6
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '9c9a81795c809f4710dd20bec1e349df' => __DIR__ . '/..' . '/joshcam/mysqli-database-class/MysqliDb.php',
+        '94df122b6b32ca0be78d482c26e5ce00' => __DIR__ . '/..' . '/joshcam/mysqli-database-class/dbObject.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'j' => 
+        array (
+            'jframework\\' => 11,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -22,6 +28,10 @@ class ComposerStaticInit2eecc302e77727c7138126b9d4f14be6
     );
 
     public static $prefixDirsPsr4 = array (
+        'jframework\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',

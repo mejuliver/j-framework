@@ -6,7 +6,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^(.*)$ index.php?/$1 [L]
 
-RewriteRule ^(app/) - [F,L,NC]
+RewriteRule ^(templates/) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Library.php) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Framework.php) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Database.php) - [F,L,NC]

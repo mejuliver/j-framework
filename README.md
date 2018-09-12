@@ -66,3 +66,10 @@ $app['url'] = ''; // leave this empty if app is not hosted on shared hosting
 $app['title'] = '' // specify your app title
 $app['db']['mysql'] = [..]; // database settings
 ```
+
+### External Embedded Validator Package
+https://respect-validation.readthedocs.io/en/1.1/
+
+```
+use \Respect\Validation\Validator as v;
+```
