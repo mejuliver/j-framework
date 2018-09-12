@@ -2,7 +2,7 @@
 	
 	// ============ A P P  S E T T I N G S ============ 
 
-	$app['url'] = 'http://localhost/newjframework';
+	$app['url'] = 'http://localhost:8000';
 
 	$app['title'] = 'Welcome';
 	

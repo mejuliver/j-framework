@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="co-md-12">
 				<div id="main-wrapper">
-					<form action="<?php echo $this->config('url'); ?>/sample-form/input" method="post">
+					<form action="<?php echo $this->config('url'); ?>/sample-form/input/ajax" method="post">
 						<fieldset>
 							<label for="">Name</label>
 							<input type="text" name="name" value="<?php echo isset($input_name) ? $input_name : ''; ?>">
@@ -44,7 +44,14 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<script>
 		$(function(){
-			alert();
+			$('form').submit(function(e){
+				e.preventDefault();
+				var $this = $(this);
+
+				$.post($this.attr('action'),$this.serialize(),function(e){
+					console.log(e);
+				});
+			});
 		});
 	</script>
 </body>

@@ -1,4 +1,4 @@
-<?php namespace App\Models;
+<?php namespace jframework\Models;
 
 Class Sample_model extends model{
 
