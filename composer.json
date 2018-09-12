@@ -1,5 +1,6 @@
 {
     "require": {
+    	"mejuliver/jframework" : "^0.1",
         "respect/validation": "^1.1",
         "joshcam/mysqli-database-class": "dev-master"
     },
