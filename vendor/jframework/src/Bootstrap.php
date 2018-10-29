@@ -19,17 +19,15 @@ if( file_exists(  __DIR__.'/../../../config.php' ) ){
 	
 }else{
 	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
-		$error_name = 'jframework config file was not found (config.php)';
+		$error_name = 'Config file was not found (app_dir/config.php)';
 		include __DIR__ . '/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
-		die('jframework config file was not found (config.php)');
+		die('Config file was not found (app_dir/config.php)');
 	}
 	
 }
-
-// require_once (__DIR__.'/../../joshcam/mysqli-database-class/MysqliDb.php');
 
 require_once( __DIR__.'/../../../routes.php'); // require the config
 
@@ -37,12 +35,12 @@ if( file_exists(  __DIR__.'/Framework.php' ) ){
 	require_once( __DIR__.'/Framework.php'); // require the config
 }else{
 	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
-		$error_name = 'Framework was not found (Framework.php)';
+		$error_name = 'Framework was not found (app_dir/vendor/jframework/src/Framework.php)';
 		include __DIR__ . '/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
-		die('Framework was not found (Framework.php)');
+		die('Framework was not found (app_dir/vendor/jframework/src/Framework.php)');
 	}
 }
 
@@ -57,12 +55,12 @@ if( file_exists(  __DIR__.'/Router.php' ) ){
 	require_once( __DIR__.'/Router.php'); // require the config
 }else{
 	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
-		$error_name = 'Router was not found (Router.php)';
+		$error_name = 'Router was not found (app_dir/vendor/jframework/src/Router.php)';
 		include __DIR__ . '/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
-		die('Router was not found (Router.php)');
+		die('Router was not found (app_dir/vendor/jframework/src/Router.php)');
 	}
 }
 
@@ -71,12 +69,12 @@ if( file_exists(  __DIR__.'/../../../routes.php' ) ){
 	require_once( __DIR__.'/../../../routes.php'); // require the config
 }else{
 	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
-		$error_name = 'jframework routes file is required (routes.php)';
+		$error_name = 'jframework routes file is required (app_dir/routes.php)';
 		include __DIR__ . '/helpers/error.php';
 		exit;
 	}else{
 		header('HTTP/1.1 404 Not Found');
-		die('jframework routes file is required (routes.php)');
+		die('jframework routes file is required (app_dir/routes.php)');
 	}
 }
 
