@@ -14,7 +14,7 @@
     },
     "autoload": {
 	    "psr-4": {
-	      "jframework\\":"src/"
+	      "jframework\\":"vendor/jframework/src/"
 	    }
 	 }
 }

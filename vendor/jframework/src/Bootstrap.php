@@ -2,10 +2,14 @@
 
 require __DIR__."/../../autoload.php";
 
+$jframework_routes = [];
+
+// routes array must be
+// [ 'name', 'controller', 'models']
+
 // check if theres a config file first
 if( file_exists(  __DIR__.'/../../../config.php' ) ){
 	require_once( __DIR__.'/../../../config.php'); // require the config
-
 	
 		if( defined('fresh') ){
 			include __DIR__ . '/helpers/welcome.php';
@@ -25,6 +29,43 @@ if( file_exists(  __DIR__.'/../../../config.php' ) ){
 	
 }
 
+require_once (__DIR__.'/../../joshcam/mysqli-database-class/MysqliDb.php');
+
+require_once( __DIR__.'/../../../routes.php'); // require the config
+
+if( file_exists(  __DIR__.'/Framework.php' ) ){
+	require_once( __DIR__.'/Framework.php'); // require the config
+}else{
+	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
+		$error_name = 'Framework was not found (Framework.php)';
+		include __DIR__ . '/helpers/error.php';
+		exit;
+	}else{
+		header('HTTP/1.1 404 Not Found');
+		die('Framework was not found (Framework.php)');
+	}
+}
+
+
+use jframework\Framework as framework;
+
+// initialize the framework
+$_app = new framework();
+$router = new Router();
+
+if( file_exists(  __DIR__.'/Router.php' ) ){
+	require_once( __DIR__.'/Router.php'); // require the config
+}else{
+	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
+		$error_name = 'Router was not found (Router.php)';
+		include __DIR__ . '/helpers/error.php';
+		exit;
+	}else{
+		header('HTTP/1.1 404 Not Found');
+		die('Router was not found (Router.php)');
+	}
+}
+
 // check for the routes file
 if( file_exists(  __DIR__.'/../../../routes.php' ) ){
 	require_once( __DIR__.'/../../../routes.php'); // require the config
@@ -38,30 +79,7 @@ if( file_exists(  __DIR__.'/../../../routes.php' ) ){
 		die('jframework routes file is required (routes.php)');
 	}
 }
-require_once (__DIR__.'/../../joshcam/mysqli-database-class/MysqliDb.php');
 
-require_once( __DIR__.'/../../../routes.php'); // require the config
-
-if( file_exists(  __DIR__.'/Framework.php' ) ){
-	require_once( __DIR__.'/Framework.php'); // require the config
-}else{
-	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
-		$error_name = ' was not found (framework.php)';
-		include __DIR__ . '/helpers/error.php';
-		exit;
-	}else{
-		header('HTTP/1.1 404 Not Found');
-		die(' was not found (framework.php)');
-	}
-}
-
-
-use jframework\Framework as framework;
-
-// initialize the framework
-$_app = new framework;
-// get the route, init checks the current http request and get the specific route base on the return http request type
-$_route = $_app->init(); // run app init
 
 require_once(__DIR__.'/Library.php'); // require the library
 
