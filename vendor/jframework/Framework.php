@@ -30,9 +30,6 @@ class Framework{
 		$app_url = ( $this->config('url',true) && trim($this->config('url',true)) != '' ) ? true : false; 
 
 		$base_server = $server;
-		
-		$server = $base_server;
-
 
 		$raw_request = parse_url(trim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH);
 
@@ -56,6 +53,12 @@ class Framework{
 
 		}else{
 			$_route = ( isset($route[$_http[1]]) ) ? $route[$_http[1]] : false;
+
+			if( $_route){
+				// check pattern
+				$raw_route = [ $route[$_http[1],$http[1]  ]
+				$this->routeValidator($_http[1]);
+			}
 		}
 
 		if( !$_route ){
@@ -64,6 +67,60 @@ class Framework{
 			return [true,$_route];
 		}
 
+	}
+
+	private function routeValidator($route){
+		$patternAsRegex = getRegex($test['route']);
+		// We've got a regex, let's parse a URL
+        if ($ok = preg_match($patternAsRegex, $route, $matches)) {
+            // Get elements with string keys from matches
+            $params = array_intersect_key(
+                $matches,
+                array_flip(array_filter(array_keys($matches), 'is_string'))
+            );
+
+            // Did we get the expected parameter?
+            $ok = $params == $test['expectedParam'];
+
+            // Turn parameter array into string
+            list ($key, $value) = each($params);
+            $params = "$key = $value";
+        }
+        
+        // Show result of regex generation
+        printf('%-5s %-16s %-39s %-14s %s' . PHP_EOL,
+            $ok ? 'PASS' : 'FAIL',
+            $test['route'], $patternAsRegex,
+            $test['url'],   $params
+        );
+	}
+
+	private function routeFormatter($pattern){
+		if (preg_match('/[^-:\/_{}()a-zA-Z\d]/', $pattern))
+            return false; // Invalid pattern
+
+        // Turn "(/)" into "/?"
+        $pattern = preg_replace('#\(/\)#', '/?', $pattern);
+
+        // Create capture group for ":parameter"
+        $allowedParamChars = '[a-zA-Z0-9\_\-]+';
+        $pattern = preg_replace(
+            '/:(' . $allowedParamChars . ')/',   # Replace ":parameter"
+            '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
+            $pattern
+        );
+
+        // Create capture group for '{parameter}'
+        $pattern = preg_replace(
+            '/{('. $allowedParamChars .')}/',    # Replace "{parameter}"
+            '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
+            $pattern
+        );
+
+        // Add start and end matching
+        $patternAsRegex = "@^" . $pattern . "$@D";
+
+        return $patternAsRegex;
 	}
 
 	// ------------ WILL GIVE THE REQUESTED CONFIG NAME FROM THE CONFIG.PHP
