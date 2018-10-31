@@ -9,9 +9,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "respect/validation": "^1.1",
-        "joshcam/mysqli-database-class": "dev-master"
-    },
+	},
     "autoload": {
 	    "psr-4": {
 	      "jframework\\":"vendor/jframework/src/"

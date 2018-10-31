@@ -67,12 +67,20 @@ $app['title'] = '' // specify your app title
 $app['db']['mysql'] = [..]; // database settings
 ```
 
-### External Embedded Validator Package
+### External Recommended Packages
+For input validations
 https://respect-validation.readthedocs.io/en/1.1/
 ```
 use \Respect\Validation\Validator as v;
 ```
+For database wrapper
 https://github.com/ThingEngineer/PHP-MySQLi-Database-Class
 ```
 use \MysqliDb as sqldb;
+```
+for php mailer
+https://github.com/PHPMailer/PHPMailer
+```
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 ```

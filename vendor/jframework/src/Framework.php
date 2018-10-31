@@ -2,7 +2,7 @@
 
 class Framework{
 	public function __construct(){
-		$this->init();
+
 	}
 	// ------------ THE FIRST METHOD TO BE CALLED
 	public function init(){
@@ -30,6 +30,8 @@ class Framework{
 		$app_url = ( $this->config('url',true) && trim($this->config('url',true)) != '' ) ? true : false; 
 
 		$base_server = $server;
+		
+		$server = $base_server;
 
 
 		$raw_request = parse_url(trim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH);
@@ -43,63 +45,6 @@ class Framework{
 		return [ $server, $raw_request ];
 
 	}
-	// ------------ ROUTES VALIDATOR FOR REGEX
-	private function routeRegex($pattern){
-	    if (preg_match('/[^-:\/_{}()a-zA-Z\d]/', $pattern))
-	        return false; // Invalid pattern
-
-	    // Turn "(/)" into "/?"
-	    $pattern = preg_replace('#\(/\)#', '/?', $pattern);
-
-	    // Create capture group for ":parameter"
-	    $allowedParamChars = '[a-zA-Z0-9\_\-]+';
-	    $pattern = preg_replace(
-	        '/:(' . $allowedParamChars . ')/',   # Replace ":parameter"
-	        '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
-	        $pattern
-	    );
-
-	    // Create capture group for '{parameter}'
-	    $pattern = preg_replace(
-	        '/{('. $allowedParamChars .')}/',    # Replace "{parameter}"
-	        '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
-	        $pattern
-	    );
-
-	    // Add start and end matching
-	    $patternAsRegex = "@^" . $pattern . "$@D";
-
-	    return $patternAsRegex;
-	}
-
-	private function routeRegexValidator($r){
-		$res = false;
-
-		// Make regexp from route
-		$patternAsRegex = $this->routeRegex($r['route']);
-
-		if ($ok = !!$patternAsRegex) {
-		    // We've got a regex, let's parse a URL
-		    if ($ok = preg_match($patternAsRegex, $r['url'], $matches)) {
-		        // Get elements with string keys from matches
-		        $params = array_intersect_key(
-		            $matches,
-		            array_flip(array_filter(array_keys($matches), 'is_string'))
-		        );
-
-		        // Did we get the expected parameter?
-		        $ok = $params == $r['expectedParam'];
-
-		        // Turn parameter array into string
-		        list ($key, $value) = each($params);
-		        $params = "$key = $value";
-		    }
-		}
-
-		return $res;
-	}
-
-
 	// ------------ BUILD THE ROUTES
 	public function route($_http){
 
