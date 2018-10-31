@@ -38,7 +38,6 @@ if( file_exists(  __DIR__.'/../../../routes.php' ) ){
 		die('jframework routes file is required (routes.php)');
 	}
 }
-require_once (__DIR__.'/../../joshcam/mysqli-database-class/MysqliDb.php');
 
 require_once( __DIR__.'/../../../routes.php'); // require the config
 
