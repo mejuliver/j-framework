@@ -211,7 +211,7 @@ class Framework{
 
 				$get_arr = [];
 
-				$req = explode( '&&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
+				$req = explode( '&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
 
 				foreach( $req as $q ){
 					$val = explode('=',$q);
