@@ -1,12 +1,15 @@
 RewriteEngine On 
 RewriteBase /
 
+# uncomment 2 lines below to force domain to not use www
+# RewriteCond %{HTTP_HOST} ^www\.fela2019\.com [NC]
+# RewriteRule ^(.*)$ http://fela2019.com/$1 [L,R=301]
+
 RewriteCond %{REQUEST_FILENAME} !-f 
 RewriteCond %{REQUEST_FILENAME} !-d 
 
 RewriteRule ^(.*)$ index.php?/$1 [L]
 
-RewriteRule ^(templates/) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Library.php) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Framework.php) - [F,L,NC]
 RewriteRule ^(vendor/jframework/src/Database.php) - [F,L,NC]
