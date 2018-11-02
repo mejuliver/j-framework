@@ -1,6 +1,8 @@
 <?php namespace jframework\Models;
 
-class Model{
+use jframework\Framework as framework;
+
+class Model extends framework{
 
 	public function __construct(){
 		
