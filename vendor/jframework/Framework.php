@@ -211,6 +211,10 @@ class Framework{
 
 			if( strtolower($type) == 'get' ){
 
+				if( !isset($_GET[$request]) ){
+					return false;
+				}
+
 				$get_arr = [];
 
 				$req = explode( '&&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
@@ -224,11 +228,15 @@ class Framework{
 				return $get_arr[$request];
 
 			}elseif( strtolower($type) == 'post' ){
-
+				if( !isset($_POST[$request]) ){
+					return false;
+				}
 				return $_POST[$request];
 
 			}elseif( strtolower($type) == 'file'){
-
+				if( !isset($_FILE[$request]) ){
+					return false;
+				}
 				return $_FILE[$request];
 			}
 
