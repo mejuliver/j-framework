@@ -2,11 +2,13 @@
 
 class Framework{
 	public function __construct(){
-		$this->init();
+		
 	}
 	// ------------ THE FIRST METHOD TO BE CALLED
 	public function init(){
 
+		// set url history
+		$this->url_history();
 		return $this->route($this->checkHttp());
 	}
 	// ------------ CHECK CURRENT HTTP REQUEST
@@ -30,6 +32,8 @@ class Framework{
 		$app_url = ( $this->config('url',true) && trim($this->config('url',true)) != '' ) ? true : false; 
 
 		$base_server = $server;
+		
+		$server = $base_server;
 
 
 		$raw_request = parse_url(trim($_SERVER['REQUEST_URI'], '/'), PHP_URL_PATH);
@@ -43,63 +47,6 @@ class Framework{
 		return [ $server, $raw_request ];
 
 	}
-	// ------------ ROUTES VALIDATOR FOR REGEX
-	private function routeRegex($pattern){
-	    if (preg_match('/[^-:\/_{}()a-zA-Z\d]/', $pattern))
-	        return false; // Invalid pattern
-
-	    // Turn "(/)" into "/?"
-	    $pattern = preg_replace('#\(/\)#', '/?', $pattern);
-
-	    // Create capture group for ":parameter"
-	    $allowedParamChars = '[a-zA-Z0-9\_\-]+';
-	    $pattern = preg_replace(
-	        '/:(' . $allowedParamChars . ')/',   # Replace ":parameter"
-	        '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
-	        $pattern
-	    );
-
-	    // Create capture group for '{parameter}'
-	    $pattern = preg_replace(
-	        '/{('. $allowedParamChars .')}/',    # Replace "{parameter}"
-	        '(?<$1>' . $allowedParamChars . ')', # with "(?<parameter>[a-zA-Z0-9\_\-]+)"
-	        $pattern
-	    );
-
-	    // Add start and end matching
-	    $patternAsRegex = "@^" . $pattern . "$@D";
-
-	    return $patternAsRegex;
-	}
-
-	private function routeRegexValidator($r){
-		$res = false;
-
-		// Make regexp from route
-		$patternAsRegex = $this->routeRegex($r['route']);
-
-		if ($ok = !!$patternAsRegex) {
-		    // We've got a regex, let's parse a URL
-		    if ($ok = preg_match($patternAsRegex, $r['url'], $matches)) {
-		        // Get elements with string keys from matches
-		        $params = array_intersect_key(
-		            $matches,
-		            array_flip(array_filter(array_keys($matches), 'is_string'))
-		        );
-
-		        // Did we get the expected parameter?
-		        $ok = $params == $r['expectedParam'];
-
-		        // Turn parameter array into string
-		        list ($key, $value) = each($params);
-		        $params = "$key = $value";
-		    }
-		}
-
-		return $res;
-	}
-
-
 	// ------------ BUILD THE ROUTES
 	public function route($_http){
 
@@ -116,6 +63,7 @@ class Framework{
 		if( !$_route ){
 			return [false,$this->error(6)];
 		}else{
+
 			return [true,$_route];
 		}
 
@@ -175,8 +123,8 @@ class Framework{
 		if(file_exists($file)){
 
 			if($data){
-				foreach($data as $key => $value ){
-					$$key = $value;
+				foreach($data as $key => $http_rawue ){
+					$$key = $http_rawue;
 				}
 			}
 
@@ -214,9 +162,9 @@ class Framework{
 				$req = explode( '&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
 
 				foreach( $req as $q ){
-					$val = explode('=',$q);
+					$http_raw = explode('=',$q);
 
-					$get_arr[$val[0]] = $val[1];
+					$get_arr[$http_raw[0]] = $http_raw[1];
 				}
 
 				return $get_arr[$request];
@@ -247,6 +195,92 @@ class Framework{
 
 		return __DIR__.'/../../../';
 
+	}
+	//redirect helper
+	public function redirect($url, $permanent = false){
+		
+	    header('Location: ' . $url, true, $permanent ? 301 : 302);
+
+	    exit();
+	}
+	//session helper
+	public function session_set($name,$http_raw){
+		$_SESSION[$name] = $http_raw;
+		return true;
+	}
+	public function session_get($name){
+
+		return isset( $_SESSION[$name] ) ? $_SESSION[$name] : false;
+	}
+	public function session_delete($name){
+		if( isset( $_SESSION[$name] ) )
+		unset($_SESSION[$name]);
+		return true;
+	}
+
+	public function session_destroy_all(){
+		session_destroy(); 
+		return;
+	}
+	public function session_delete_all(){
+		session_unset(); 
+		return true;
+	}
+	public function prev_url($count=false){
+		
+		if( !$this->session_get('prev_urls') ){
+			return '';
+		}else{
+			if(!$count){
+				return isset( $this->session_get('prev_urls')[1] ) ? $this->session_get('prev_urls')[1] : '';
+			}else{
+				return ( $count == 0 ) ? $this->session_get('prev_urls')[0] : $this->session_get('prev_urls')[$count-1];
+			}
+		}
+		
+	}
+	public function url_history(){
+
+		// $this->session_set('prev_urls',)
+
+		$http_raw = $this->checkHttp()[0].'/'.$this->checkHttp()[1];
+
+		if( !$this->session_get('prev_urls') ){
+			
+			$this->session_set('prev_urls',[$http_raw]);
+
+		}else{
+			
+			if( count( $this->session_get('prev_urls') ) > 50 ){
+
+				$url_sessions = $this->session_get('prev_urls');
+
+				$new_arr_sessions = array_values(array_splice($url_sessions, 0, (count($url_sessions)-5) ));
+
+				$this->session_set('prev_urls',$new_arr_sessions);
+
+
+			}else{
+				
+				if ( count( $this->session_get('prev_urls') ) > 0 ){
+					
+					$tmp_sessions = $this->session_get('prev_urls');
+
+					array_unshift($tmp_sessions, 'saedx');
+					
+					$this->session_set('prev_urls',$tmp_sessions);
+
+				}else{
+
+					$this->session_set('prev_urls',[$http_raw]);
+
+				}
+				
+			}
+
+		}
+
+		return;
 	}
 
 }

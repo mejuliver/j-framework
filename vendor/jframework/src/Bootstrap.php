@@ -2,14 +2,10 @@
 
 require __DIR__."/../../autoload.php";
 
-$jframework_routes = [];
-
-// routes array must be
-// [ 'name', 'controller', 'models']
-
 // check if theres a config file first
 if( file_exists(  __DIR__.'/../../../config.php' ) ){
 	require_once( __DIR__.'/../../../config.php'); // require the config
+
 	
 		if( defined('fresh') ){
 			include __DIR__ . '/helpers/welcome.php';
@@ -44,15 +40,10 @@ if( file_exists(  __DIR__.'/Framework.php' ) ){
 	}
 }
 
+require_once( __DIR__.'/../../../routes.php'); // require the config
 
-use jframework\Framework as framework;
-
-// initialize the framework
-$_app = new framework();
-$router = new Router();
-
-if( file_exists(  __DIR__.'/Router.php' ) ){
-	require_once( __DIR__.'/Router.php'); // require the config
+if( file_exists(  __DIR__.'/Framework.php' ) ){
+	require_once( __DIR__.'/Framework.php'); // require the config
 }else{
 	if( file_exists( __DIR__ . '/helpers/error.php' ) ){
 		$error_name = 'Router was not found (app_dir/vendor/jframework/src/Router.php)';
@@ -78,6 +69,12 @@ if( file_exists(  __DIR__.'/../../../routes.php' ) ){
 	}
 }
 
+use jframework\Framework as framework;
+
+// initialize the framework
+$_app = new framework;
+// get the route, init checks the current http request and get the specific route base on the return http request type
+$_route = $_app->init(); // run app init
 
 require_once(__DIR__.'/Library.php'); // require the library
 
