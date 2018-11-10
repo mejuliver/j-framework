@@ -193,5 +193,35 @@ class Framework{
 		return __DIR__.'/../../../';
 
 	}
+	//redirect helper
+	public function redirect($url, $permanent = false){
+		
+	    header('Location: ' . $url, true, $permanent ? 301 : 302);
+
+	    exit();
+	}
+	//session helper
+	public function session_set($name,$http_raw){
+		$_SESSION[$name] = $http_raw;
+		return true;
+	}
+	public function session_get($name){
+
+		return isset( $_SESSION[$name] ) ? $_SESSION[$name] : false;
+	}
+	public function session_delete($name){
+		if( isset( $_SESSION[$name] ) )
+		unset($_SESSION[$name]);
+		return true;
+	}
+
+	public function session_destroy_all(){
+		session_destroy(); 
+		return;
+	}
+	public function session_delete_all(){
+		session_unset(); 
+		return true;
+	}
 
 }
