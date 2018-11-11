@@ -159,20 +159,20 @@ class Framework{
 				$req = explode( '&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
 
 				foreach( $req as $q ){
-					$val = explode('=',$q);
+					$http_raw = explode('=',$q);
 
-					$get_arr[$val[0]] = $val[1];
+					$get_arr[$http_raw[0]] = $http_raw[1];
 				}
 
-				return $get_arr[$request];
+				return isset( $get_arr[$request] ) ? $get_arr[$request] : false;
 
 			}elseif( strtolower($type) == 'post' ){
 
-				return $_POST[$request];
+				return isset( $_POST[$request] ) ? $_POST[$request] : false;
 
 			}elseif( strtolower($type) == 'file'){
 
-				return $_FILE[$request];
+				return isset( $_FILE[$request] ) ? $_FILE[$request] : false;
 			}
 
 		}
