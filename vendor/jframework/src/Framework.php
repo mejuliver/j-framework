@@ -177,6 +177,11 @@ class Framework{
 
 		}
 
+		
+		return false;
+		
+	}
+
 	// ------------ GIVES ABSOLUTE THEME PATH
 	public function theme_path(){
 		return str_replace('\\', '/', getcwd());
