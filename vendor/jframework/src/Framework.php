@@ -2,13 +2,11 @@
 
 class Framework{
 	public function __construct(){
-		
+
 	}
 	// ------------ THE FIRST METHOD TO BE CALLED
 	public function init(){
 
-		// set url history
-		$this->url_history();
 		return $this->route($this->checkHttp());
 	}
 	// ------------ CHECK CURRENT HTTP REQUEST
@@ -63,7 +61,6 @@ class Framework{
 		if( !$_route ){
 			return [false,$this->error(6)];
 		}else{
-
 			return [true,$_route];
 		}
 
@@ -123,8 +120,8 @@ class Framework{
 		if(file_exists($file)){
 
 			if($data){
-				foreach($data as $key => $http_rawue ){
-					$$key = $http_rawue;
+				foreach($data as $key => $value ){
+					$$key = $value;
 				}
 			}
 
@@ -162,9 +159,9 @@ class Framework{
 				$req = explode( '&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
 
 				foreach( $req as $q ){
-					$http_raw = explode('=',$q);
+					$val = explode('=',$q);
 
-					$get_arr[$http_raw[0]] = $http_raw[1];
+					$get_arr[$val[0]] = $val[1];
 				}
 
 				return $get_arr[$request];
@@ -225,62 +222,6 @@ class Framework{
 	public function session_delete_all(){
 		session_unset(); 
 		return true;
-	}
-	public function prev_url($count=false){
-		
-		if( !$this->session_get('prev_urls') ){
-			return '';
-		}else{
-			if(!$count){
-				return isset( $this->session_get('prev_urls')[1] ) ? $this->session_get('prev_urls')[1] : '';
-			}else{
-				return ( $count == 0 ) ? $this->session_get('prev_urls')[0] : $this->session_get('prev_urls')[$count-1];
-			}
-		}
-		
-	}
-	public function url_history(){
-
-		// $this->session_set('prev_urls',)
-
-		$http_raw = $this->checkHttp()[0].'/'.$this->checkHttp()[1];
-
-		if( !$this->session_get('prev_urls') ){
-			
-			$this->session_set('prev_urls',[$http_raw]);
-
-		}else{
-			
-			if( count( $this->session_get('prev_urls') ) > 50 ){
-
-				$url_sessions = $this->session_get('prev_urls');
-
-				$new_arr_sessions = array_values(array_splice($url_sessions, 0, (count($url_sessions)-5) ));
-
-				$this->session_set('prev_urls',$new_arr_sessions);
-
-
-			}else{
-				
-				if ( count( $this->session_get('prev_urls') ) > 0 ){
-					
-					$tmp_sessions = $this->session_get('prev_urls');
-
-					array_unshift($tmp_sessions, 'saedx');
-					
-					$this->session_set('prev_urls',$tmp_sessions);
-
-				}else{
-
-					$this->session_set('prev_urls',[$http_raw]);
-
-				}
-				
-			}
-
-		}
-
-		return;
 	}
 
 }
