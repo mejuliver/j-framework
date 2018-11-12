@@ -1,7 +1,15 @@
 <?php namespace jframework;
 
+require_once(__DIR__.'/Session.php'); // require the library
+
+$session = new Session();
+
 class Framework{
 	public function __construct(){
+
+		global $session;
+
+		$session->Session();
 
 	}
 	// ------------ THE FIRST METHOD TO BE CALLED
@@ -154,25 +162,33 @@ class Framework{
 
 			if( strtolower($type) == 'get' ){
 
+				if( isset( $_GET[$request] ) ){
+					return $_GET[$request];
+				}
 				$get_arr = [];
 
 				$req = explode( '&',parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY) );
 
 				foreach( $req as $q ){
-					$val = explode('=',$q);
+					$http_raw = explode('=',$q);
 
-					$get_arr[$val[0]] = $val[1];
+					if( isset($http_raw[1]) ){
+						$get_arr[$http_raw[0]] = $http_raw[1];
+					}else{
+						$get_arr[$http_raw[0]] = '';
+					}
+
 				}
 
-				return $get_arr[$request];
+				return isset( $get_arr[$request] ) ? $get_arr[$request] : false;
 
 			}elseif( strtolower($type) == 'post' ){
 
-				return $_POST[$request];
+				return isset( $_POST[$request] ) ? $_POST[$request] : false;
 
 			}elseif( strtolower($type) == 'file'){
 
-				return $_FILE[$request];
+				return isset( $_FILE[$request] ) ? $_FILE[$request] : false;
 			}
 
 		}
@@ -193,5 +209,76 @@ class Framework{
 		return __DIR__.'/../../../';
 
 	}
+	//redirect helper
+	public function redirect($url, $permanent = false){
+		
+	    header('Location: ' . $url, true, $permanent ? 301 : 302);
+
+	    exit();
+	}
+	//session helper
+	public function session_set($n,$v){
+		// $_SESSION[$name] = $http_raw;
+		// return true;
+
+		global $session;
+
+		$session->set_userdata($n,$v);
+
+		return true;
+	}
+	public function session_get($n){
+
+		// return isset( $_SESSION[$name] ) ? $_SESSION[$name] : false;
+		global $session;
+		return $session->userdata($n);
+	}
+
+	public function session_flash($k,$v){
+		global $session;
+
+		$session->set_flashdata($k, $v);
+	}
+
+	public function session_keep_flash($k){
+		global $session;
+		$sesion->keep_flashdata($k);
+	}
+
+	public function session_get_flash($k){
+		global $session;
+		return $session->flashdata($k);
+	}
+
+	public function session_all(){
+		global $session;
+		return $session->all_userdata();
+	}
+	public function session_delete($n){
+		// if( isset( $_SESSION[$name] ) )
+		// unset($_SESSION[$name]);
+		// return true;
+
+		global $session;
+
+		$session->unset_userdata($n);
+
+		return true;
+	}
+
+	public function session_destroy_all(){
+		// session_destroy(); 
+		// return;
+		global $session;
+
+		$session->destroy();
+
+		return true;
+	}
+	public function session_delete_all(){
+		session_unset(); 
+		return true;
+	}
+
 
 }
