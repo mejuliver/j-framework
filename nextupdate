@@ -1,0 +1,12 @@
+htaccess - redirect all requests to index.php
+index - frontend boot
+http - htpp request
+config - system variables storage
+bootstrap - will glue everything
+router - interpret, filter http requests 
+input - input class, handle all input requests
+sessions - handle sessions
+library - base boot class for libraries
+controller - base boot class for controllers
+model - base boot class for models
+utilities - framework helpers

@@ -180,7 +180,19 @@ class Framework{
 
 				}
 
-				return isset( $get_arr[$request] ) ? $get_arr[$request] : false;
+				$data = isset( $get_arr[$request] ) ? $get_arr[$request] : false;
+
+				if( !$data ){ // do the 2nd filtering
+					$url = $_SERVER['REQUEST_URI'];
+					if( isset(parse_url($url)['query'] ) ){
+						parse_str(parse_url($url)['query'], $params);
+
+						return $params[$request];
+					}
+
+				}else{
+					return $data;
+				}
 
 			}elseif( strtolower($type) == 'post' ){
 
